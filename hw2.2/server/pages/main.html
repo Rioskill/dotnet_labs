@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DZ 2.1</title>
+
+    <style>
+        .container {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            margin: 20px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form>
+            <label for="math">Выражение</label>
+            <input name="math" type="text" />
+            <input type="submit" />
+        </form>
+
+        <p id="result-container"></p>
+    </div>
+
+    <script>
+        const container = document.querySelector('.container');
+        const form = container.querySelector('form');
+        const input = form.querySelector('input[type=text]');
+        const resultContainer = container.querySelector('#result-container');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            fetch('/calc', {
+                method: 'POST',
+                body: JSON.stringify({
+                    query: input.value
+                })
+            })
+                .then(async response => {
+                    text = await response.text();
+
+                    resultContainer.innerText = `Result: ${text}`;
+                })
+                .catch(reason => {
+                    console.error(reason);
+                })
+        })
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"id":1835296623,"customer":{"name":"a","address":"b","discount":10.0},"discount":10.0,"price":405.0,"lines":[{"product":{"name":"молоко","price":100.0},"num":3},{"product":{"name":"хлеб","price":30.0},"num":5}]}

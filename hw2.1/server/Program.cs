@@ -17,7 +17,7 @@ class HttpServer
         _fileRootPath = fileRootPath;
     }
 
-    private ~HttpServer()
+    ~HttpServer()
     {
         _listener.Stop();
     }

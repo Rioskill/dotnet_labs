@@ -57,4 +57,21 @@ public class UnitTest1
 
         Assert.Throws<System.Exception>(() => calc.Calculate("(3 + 4))"));
     }
+
+    [Fact]
+    public void DivisionByZeroError()
+    {
+        CalculatorNS.Calculator calc = new();
+
+        Assert.Throws<System.Exception>(() => calc.Calculate("2 / 0"));
+    }
+
+    
+    [Fact]
+    public void UnknownOperationError()
+    {
+        CalculatorNS.Calculator calc = new();
+
+        Assert.Throws<System.Exception>(() => calc.Calculate("1 k 2"));
+    }
 }

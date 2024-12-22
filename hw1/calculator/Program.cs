@@ -89,7 +89,12 @@ namespace CalculatorNS
                 ["+"] = (a, b) => a + b,
                 ["*"] = (a, b) => a * b,
                 ["-"] = (a, b) => a - b,
-                ["/"] = (a, b) => a / b
+                ["/"] = (a, b) => {
+                    if (b == 0) {
+                        throw new Exception("division by zero: " + a + "/" + b);
+                    }
+                    return a / b;
+                }
         };
 
         private Stack<string> stack;
@@ -169,9 +174,6 @@ namespace CalculatorNS
                 }
             }
 
-            Console.WriteLine(tokens[0]);
-            Console.WriteLine(double.Parse(tokens[0]));
-
             return (int)Math.Round(double.Parse(tokens[0]));
         }
 
@@ -198,7 +200,7 @@ namespace CalculatorNS
 
                 var firstOperand = double.Parse(stack.Pop());
 
-                if (ops_funcs.TryGetValue(opName, out Func<double, double, double> op))
+                if (ops_funcs.TryGetValue(opName, out Func<double, double, double>? op))
                 {
                     var result = op(firstOperand, secondOperand);
                     tokens[0] = result.ToString();
@@ -224,7 +226,11 @@ namespace CalculatorNS
                 return;
             }
 
-            Console.WriteLine(calc.Calculate(s));
+            try {
+                Console.WriteLine(calc.Calculate(s));
+            } catch(Exception e) {
+                Console.WriteLine(e.Data);
+            }
         }
     }
 }
